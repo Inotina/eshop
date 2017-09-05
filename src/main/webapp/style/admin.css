@@ -1,0 +1,22 @@
+h2 {
+    color: burlywood;
+    margin-left: 100px;
+}
+table {
+    border-collapse: collapse;
+    margin-left: 100px;
+}
+th {
+    background-color: bisque;
+}
+
+tr:nth-child(even) {
+    background-color: beige;
+}
+tr:nth-child(odd) {
+    background-color: antiquewhite;
+}
+.refer {
+    margin-left: 15%;
+    margin-top: 50px;
+}

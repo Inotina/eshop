@@ -1,0 +1,63 @@
+html {
+	text-align: center;
+}
+
+h2 {
+	color: darkorchid;
+}
+
+.auth {
+	margin-right: 20px;
+	text-align: right;
+}
+
+.prod {
+	margin-left: 620px;
+	margin-right: 600px;
+	padding: 10px;
+	text-align: left;
+	background-color: antiquewhite;
+}
+
+.product {
+	padding: 5px;
+}
+
+.regist {
+	text-align: center;
+	margin: auto;
+	margin-top: 100px;
+	width: 450px;
+	border-radius: 10px;
+	background-color: darkseagreen;
+}
+
+.login {
+	text-align: center;
+	margin: auto;
+	margin-top: 150px;
+	width: 300px;
+	background-color: antiquewhite;
+	min-height: 130px;
+	border-radius: 10px;
+}
+
+button {
+	margin-bottom: 10px;
+}
+
+.cart {
+	background-color: aquamarine;
+	border-radius: 10px;
+	margin: auto;
+	width: 250px;
+	text-align: center;
+}
+
+.prodpage {
+	background-color: aqua;
+	border-radius: 10px;
+	box-shadow: 1;
+	margin: auto;
+	width: 300px;
+}

@@ -6,7 +6,7 @@ In this project(Maven webapp archetype project) i've implemented internet shop f
 3. Register, Login and Logout modules.
 4. Admin Area to manage products and purchases.
 
-Basically it's my previous project 'minishop' rewrited with  using frameworks.
+Basically it's my previous project 'minishop' rewrited using frameworks.
 Technology stack:
 1. Spring 4(Spring MVC)
 2. Hibernate 5

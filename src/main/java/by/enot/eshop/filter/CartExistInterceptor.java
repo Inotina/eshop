@@ -15,7 +15,7 @@ public class CartExistInterceptor extends AbstractInterceptor {
     private CartManager manager;
     private static final Logger log = Logger.getLogger(CartExistInterceptor.class);
 
-    public boolean preHandleImpl(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         if (request.getSession().getAttribute("Cart") == null){
             Cookie[] cookie = request.getCookies();
             Map<String, Integer> cart = manager.loadCart(cookie);

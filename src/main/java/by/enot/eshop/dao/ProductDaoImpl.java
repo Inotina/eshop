@@ -34,7 +34,7 @@ public class ProductDaoImpl implements ProductDao {
         return list;
     }
     @Transactional
-    public Product getById(int id) throws NoSuchEntityInDBException {
+    public Product getById(long id) throws NoSuchEntityInDBException {
         Product product = getSession().find(Product.class, id);
         if (product == null){
             log.debug(id + " - no product with this id in db.");

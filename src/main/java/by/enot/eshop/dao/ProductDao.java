@@ -9,7 +9,7 @@ public interface ProductDao {
 
     public List<Product> getAll();
 
-    public Product getById(int id) throws NoSuchEntityInDBException;
+    public Product getById(long id) throws NoSuchEntityInDBException;
 
     public Product getByName(String name) throws NoSuchEntityInDBException;
 

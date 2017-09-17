@@ -32,7 +32,7 @@ public class PurchaseDaoImpl implements PurchaseDao{
         return list;
     }
     @Transactional
-    public Purchase getByID(int id) throws NoSuchEntityInDBException {
+    public Purchase getByID(long id) throws NoSuchEntityInDBException {
         Purchase purchase = getSession().find(Purchase.class, id);
         if (purchase == null){
             log.debug(purchase.getId() + " - no purchase with this id in db.");

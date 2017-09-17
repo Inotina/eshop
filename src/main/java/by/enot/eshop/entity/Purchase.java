@@ -9,7 +9,7 @@ public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PurchaseID")
-    private int id;
+    private long id;
 
     @Column(name = "Phone")
     private String phone;
@@ -47,11 +47,11 @@ public class Purchase {
         this.id = purchase.getId();
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

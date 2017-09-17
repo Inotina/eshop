@@ -9,7 +9,7 @@ public interface PurchaseDao {
 
     public List<Purchase> getAll();
 
-    public Purchase getByID(int id) throws NoSuchEntityInDBException;
+    public Purchase getByID(long id) throws NoSuchEntityInDBException;
 
     public void add(Purchase purchase);
 

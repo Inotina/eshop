@@ -32,7 +32,7 @@ public class ProductController {
 
     @Transactional
     @RequestMapping(value = "/product")
-    public ModelAndView product(@RequestParam("id") int id) {
+    public ModelAndView product(@RequestParam("id") long id) {
         ModelAndView model;
         try {
             Product product = productDao.getById(id);

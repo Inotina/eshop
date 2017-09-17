@@ -27,28 +27,28 @@ public class UserServiceTest {
         when(userDao.getByEmail("good")).thenThrow(new NoSuchEntityInDBException());
     }
     @Test
-    public void test_isValid_name_valid_email_valid(){
+    public void testIsValidNameValidEmailValid(){
         User user = new User();
         user.setEmail("good");
         user.setName("good");
         Assert.assertTrue(userService.isValid(user));
     }
     @Test
-    public void test_isValid_name_valid_email_invalid(){
+    public void testIsValidNameValidEmailInvalid(){
         User user = new User();
         user.setEmail("bad");
         user.setName("good");
         Assert.assertFalse(userService.isValid(user));
     }
     @Test
-    public void test_isValid_name_invalid_email_valid(){
+    public void testIsValidNameInvalidEmailValid(){
         User user = new User();
         user.setEmail("good");
         user.setName("bad");
         Assert.assertFalse(userService.isValid(user));
     }
     @Test
-    public void test_isValid_name_invalid_email_invalid(){
+    public void testIsValidNameInvalidEmailInvalid(){
         User user = new User();
         user.setEmail("bad");
         user.setName("bad");

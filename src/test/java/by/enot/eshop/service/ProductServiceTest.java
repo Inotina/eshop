@@ -31,90 +31,90 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void test_isValidName_empty_name(){
+    public void testIsValidNameEmptyName(){
         Product product = new Product();
         product.setName("");
         Assert.assertFalse(productService.isValidName(product));
     }
     @Test
-    public void test_isValidName_existing_name(){
+    public void testIsValidNameExistingName(){
         Product product = new Product();
         product.setName("exist");
         Assert.assertFalse(productService.isValidName(product));
     }
     @Test
-    public void test_isValidName_valid_name(){
+    public void testIsValidNameValidName(){
         Product product = new Product();
         product.setName("newName");
         Assert.assertTrue(productService.isValidName(product));
     }
     @Test
-    public void test_isValidNameCurrentProductModification_empty_name(){
+    public void testIsValidNameCurrentProductModificationEmptyName(){
         Product product = new Product();
         product.setName("");
         Assert.assertFalse(productService.isValidNameCurrentProductModification(product, "oldName"));
     }
     @Test
-    public void test_isValidNameCurrentProductModification_existing_name(){
+    public void testIsValidNameCurrentProductModificationExistingName(){
         Product product = new Product();
         product.setName("exist");
         Assert.assertFalse(productService.isValidNameCurrentProductModification(product, "oldName"));
     }
     @Test
-    public void test_isValidNameCurrentProductModification_valid_name(){
+    public void testIsValidNameCurrentProductModificationValidName(){
         Product product = new Product();
         product.setName("newName");
         Assert.assertTrue(productService.isValidNameCurrentProductModification(product, "oldName"));
     }
     @Test
-    public void test_isValidNameCurrentProductModification_current_name(){
+    public void testIsValidNameCurrentProductModificationCurrentName(){
         Product product = new Product();
         product.setName("oldName");
         Assert.assertTrue(productService.isValidNameCurrentProductModification(product, "oldName"));
     }
     @Test
-    public void test_isValidPrice_positive_price(){
+    public void testIsValidPricePositivePrice(){
         Product product = new Product();
         product.setPrice(10);
         Assert.assertTrue(productService.isValidPrice(product));
     }
     @Test
-    public void test_isValidPrice_negative_price(){
+    public void testIsValidPricNegativePrice(){
         Product product = new Product();
         product.setPrice(-1);
         Assert.assertFalse(productService.isValidPrice(product));
     }
     @Test
-    public void test_isValidPrice_zero_price(){
+    public void testIsValidPriceZeroPrice(){
         Product product = new Product();
         product.setPrice(0);
         Assert.assertTrue(productService.isValidPrice(product));
     }
     @Test
-    public void test_isValidCount_positive_count(){
+    public void testIsValidCountPositiveCount(){
         Product product = new Product();
         product.setCount(10);
         Assert.assertTrue(productService.isValidCount(product));
     }
     @Test
-    public void test_isValidCount_negative_count(){
+    public void testIsValidCountNegativeCount(){
         Product product = new Product();
         product.setCount(-1);
         Assert.assertFalse(productService.isValidCount(product));
     }
     @Test
-    public void test_isValidCount_zero_count(){
+    public void testIsValidCountZeroCount(){
         Product product = new Product();
         product.setCount(0);
         Assert.assertTrue(productService.isValidCount(product));
     }
     @Test
-    public void test_validate_valid_product(){
+    public void testValidateValidProduct(){
         Product product = new Product("newName", 22, 10);
         Assert.assertTrue(productService.validate(product));
     }
     @Test
-    public void test_validate_all_fields_invalid_product(){
+    public void testValidateAllFieldsInvalidProduct(){
         Product product = new Product("", -22, -10);
         Assert.assertFalse(productService.validate(product));
     }

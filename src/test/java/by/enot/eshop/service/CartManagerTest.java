@@ -33,31 +33,31 @@ public class CartManagerTest {
     }
 
     @Test
-    public void test_loadCart_valid_cookie(){
+    public void testLoadCartValidCookie(){
         Cookie[] cookie = {new Cookie("yourCart", "a:1&")};
         Assert.assertNotNull(manager.loadCart(cookie));
         Assert.assertEquals(manager.loadCart(cookie).size(), 1);
     }
     @Test
-    public void test_loadCart_invalid_cookie(){
+    public void testLoadCartInvalidCookie(){
         Cookie[] cookie = {new Cookie("nothing", "a:1&")};
         Assert.assertNotNull(manager.loadCart(cookie));
         Assert.assertEquals(manager.loadCart(cookie).size(), 0);
     }
     @Test
-    public void test_saveCart(){
+    public void testSaveCart(){
         Assert.assertNotNull(manager.saveCart(new HashMap<String, Integer>()));
         Assert.assertEquals(manager.saveCart(new HashMap<String, Integer>()).getMaxAge(), 60*60*24*7);
         Assert.assertEquals(manager.saveCart(new HashMap<String, Integer>()).getName(), "yourCart");
     }
     @Test
-    public void test_mapToString(){
+    public void testMapToString(){
        Map<String, Integer> cart = new HashMap<String, Integer>();
        cart.put("A", 1);
        Assert.assertEquals(manager.mapToString(cart), "A:1&");
     }
     @Test
-    public void test_add_new_product(){
+    public void testAddNewProduct(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("A", 1);
         manager.add("A", cart);
@@ -65,7 +65,7 @@ public class CartManagerTest {
         Assert.assertEquals(aCount, 2);
     }
     @Test
-    public void test_add_exist_product(){
+    public void testAddExistProduct(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("A", 1);
         manager.add("B", cart);
@@ -75,7 +75,7 @@ public class CartManagerTest {
         Assert.assertEquals(bCount, 1);
     }
     @Test
-    public void test_remove_not_last_product_in_cart(){
+    public void testRemoveNotLastProductInCart(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("A", 2);
         manager.remove("A", cart);
@@ -83,14 +83,14 @@ public class CartManagerTest {
         Assert.assertEquals(aCount, 1);
     }
     @Test
-    public void test_remove_last_product_in_cart(){
+    public void testRemoveLastProductInCart(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("A", 1);
         manager.remove("A", cart);
         Assert.assertEquals(cart.size(), 0);
     }
     @Test
-    public void test_fixCart_from_five_to_two(){
+    public void testFixCartFromFiveToTwo(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("a", 5);
         manager.fixCart(cart);
@@ -98,7 +98,7 @@ public class CartManagerTest {
         Assert.assertEquals(aCount, 2);
     }
     @Test
-    public void test_fixCart_cart_do_not_need_to_be_fixed(){
+    public void testFixCartCartDoNotNeedToBeFixed(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("a", 1);
         manager.fixCart(cart);

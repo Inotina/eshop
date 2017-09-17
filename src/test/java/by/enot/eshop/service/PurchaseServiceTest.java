@@ -49,77 +49,77 @@ public class PurchaseServiceTest {
     }
 
     @Test
-    public void test_validClientId_valid_clientid(){
+    public void testValidClientIdValidClientid(){
         Assert.assertTrue(purchaseService.validClientid(goodPurchase));
     }
 
     @Test
-    public void test_validPhone_valid_phone(){
+    public void testValidPhoneValidPhone(){
         Assert.assertTrue(purchaseService.validPhone(goodPurchase));
     }
 
     @Test
-    public void test_validPhone_invalid_phone(){
+    public void testValidPhoneInvalidPhone(){
         Assert.assertFalse(purchaseService.validPhone(badPurchase));
     }
 
     @Test
-    public void test_validAdress_valid_adress(){
+    public void testValidAdressValidAdress(){
         Assert.assertTrue(purchaseService.validAdress(goodPurchase));
     }
     @Test
-    public void test_validAdress_invalid_adress(){
+    public void testValidAdressInvalidAdress(){
         Assert.assertFalse(purchaseService.validAdress(badPurchase));
     }
     @Test
-    public void test_validDate_no_date(){
+    public void testValidDateNoDate(){
         Assert.assertTrue(purchaseService.validDate(goodPurchase));
         Assert.assertNotNull(goodPurchase.getDate());
     }
     @Test
-    public void test_isValid_valid_purchase_no_cart_arg(){
+    public void testIsValidValidPurchaseNoCartArg(){
         Assert.assertTrue(purchaseService.isValid(goodPurchase));
     }
     @Test
-    public void test_isValid_invalid_purchase_no_cart_arg(){
+    public void testIsValidInvalidPurchaseNoCartArg(){
         Assert.assertFalse(purchaseService.isValid(badPurchase));
     }
     @Test
-    public void test_validCart_empty_cart(){
+    public void testValidCartEmptyCart(){
         Assert.assertFalse(purchaseService.validCart(goodPurchase, new HashMap<String, Integer>()));
     }
     @Test
-    public void test_validCart_not_empty_valid_cart(){
+    public void testValidCartNotEmptyValidCart(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("product", 1);
         Assert.assertTrue(purchaseService.validCart(goodPurchase, cart));
     }
     @Test
-    public void test_validCart_not_empty_invalid_cart_productcart_count_greater_than_in_db(){
+    public void testValidCartNotEmptyInvalidCartProductcartCountGreaterThanInDb(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("product", 2);
         Assert.assertFalse(purchaseService.validCart(goodPurchase, cart));
     }
     @Test
-    public void test_validCart_not_empty_invalid_cart_product_in_cart_is_not_in_db(){
+    public void testValidCartNotEmptyInvalidCartProductInCartIsNotInDb(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("noProduct", 1);
         Assert.assertFalse(purchaseService.validCart(goodPurchase, cart));
     }
     @Test
-    public void test_isValid_valid_purchase_and_cart_arg(){
+    public void testIsValidValidPurchaseAndCartArg(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("product", 1);
         Assert.assertTrue(purchaseService.isValid(goodPurchase, cart));
     }
     @Test
-    public void test_isValid_valid_purchase_and_invalid_cart_arg(){
+    public void testIsValidValidPurchaseAndInvalidCartArg(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("product", 2);
         Assert.assertFalse(purchaseService.isValid(goodPurchase, cart));
     }
     @Test
-    public void test_updateProductCount_three_product_in_cart(){
+    public void testUpdateProductCountThreeProductInCart(){
         Map<String, Integer> cart = new HashMap<String, Integer>();
         cart.put("product", 1);
         purchaseService.updateProductCount(cart);

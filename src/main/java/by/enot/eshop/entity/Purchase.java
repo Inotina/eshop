@@ -20,8 +20,9 @@ public class Purchase {
     @Column(name = "Adress")
     private String adress;
 
-    @Column(name = "ClientId")
-    private int clientId;
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="ClientId")
+    private User client;
 
     @Column(name = "Products")
     private String products;
@@ -30,11 +31,11 @@ public class Purchase {
 
     }
 
-    public Purchase(String phone, String date, String adress, int clientID, String products) {
+    public Purchase(String phone, String date, String adress, User client, String products) {
         this.phone = phone;
         this.date = date;
         this.adress = adress;
-        this.clientId = clientID;
+        this.client = client;
         this.products = products;
     }
 
@@ -42,7 +43,7 @@ public class Purchase {
         this.phone = purchase.getPhone();
         this.date = purchase.getDate();
         this.adress = purchase.getAdress();
-        this.clientId = purchase.getClientId();
+        this.client = purchase.getClient();
         this.products = purchase.getProducts();
         this.id = purchase.getId();
     }
@@ -80,12 +81,12 @@ public class Purchase {
         this.adress = adress;
     }
 
-    public int getClientId() {
-        return clientId;
+    public User getClient() {
+        return client;
     }
 
-    public void setClientId(int clientID) {
-        this.clientId = clientID;
+    public void setClient(User client) {
+        this.client = client;
     }
 
     public String getProducts() {
@@ -103,7 +104,7 @@ public class Purchase {
                 ", phone='" + phone + '\'' +
                 ", date='" + date + '\'' +
                 ", adress='" + adress + '\'' +
-                ", clientId=" + clientId +
+                ", clientId=" + client +
                 ", products='" + products + '\'' +
                 '}';
     }

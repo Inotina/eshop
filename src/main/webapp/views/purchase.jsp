@@ -30,10 +30,6 @@
         <div class="regist">
             <form:form modelAttribute="purchase" action="purchase" method="post" id="purform">
                 <div style="color: red; padding-top: 10px;">${errMessage}</div>
-                <label id="labelId" style="color:red;" hidden></label>
-                <div style="padding-top: 5px;">
-                    Your ID: <form:input path="clientId" id="clientId" value="${clientId }"/>
-                </div>
                 <label id="labelPhone" style="color:red;" hidden></label>
                 <div style="padding-top: 5px;">
                     Phone:&emsp;<form:input path="phone" id="phone" value="${phone }"/>

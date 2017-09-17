@@ -44,7 +44,7 @@ public class PurchaseDaoImpl implements PurchaseDao{
 
     public void add(Purchase purchase) {
         getSession().persist(purchase);
-        log.info("new purchase was added from client - " + purchase.getClientId());
+        log.info("new purchase was added from client - " + purchase.getClient().getId());
     }
 
     public void update(Purchase purchase) {

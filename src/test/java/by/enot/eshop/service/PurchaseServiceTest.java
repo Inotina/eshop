@@ -3,6 +3,7 @@ package by.enot.eshop.service;
 import by.enot.eshop.dao.ProductDao;
 import by.enot.eshop.entity.Product;
 import by.enot.eshop.entity.Purchase;
+import by.enot.eshop.entity.User;
 import by.enot.eshop.exception.NoSuchEntityInDBException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,6 +23,8 @@ public class PurchaseServiceTest {
     @Mock
     private ProductDao productDao;
     @Mock
+    private User user;
+    @Mock
     private CartManager manager;
     @InjectMocks
     private PurchaseService purchaseService;
@@ -35,12 +38,14 @@ public class PurchaseServiceTest {
         when(productDao.getByName("product")).thenReturn(product);
         when(productDao.getByName("noProduct")).thenThrow(new NoSuchEntityInDBException());
         goodPurchase = new Purchase();
+        goodPurchase.setClient(user);
         goodPurchase.setProducts("not empty");
         goodPurchase.setAdress("not empty");
         goodPurchase.setPhone("not empty");
         goodPurchase.setId(1);
         goodPurchase.setDate(null);
         badPurchase = new Purchase();
+        badPurchase.setClient(user);
         badPurchase.setProducts("");
         badPurchase.setAdress("");
         badPurchase.setPhone("");

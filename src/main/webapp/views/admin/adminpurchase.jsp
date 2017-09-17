@@ -15,7 +15,7 @@
 	<table border=1>
 		<tr>
 			<th>Select</th>
-			<th>ClientID</th>
+			<th>ClientName</th>
 			<th>Phone</th>
 			<th>Adress</th>
 			<th>Products</th>
@@ -24,7 +24,7 @@
 		<c:forEach items="${Purchase }" var="item">
 			<tr>
 				<td><input type="radio" name="row" value="${item.id }"></td>
-				<td>${item.clientId}</td>
+				<td>${item.client.name}</td>
 				<td>${item.phone}</td>
 				<td>${item.adress}</td>
 				<td>${item.products}</td>
@@ -43,7 +43,7 @@
 		<form:form modelAttribute="target" method="post" action="${pageContext.request.contextPath}/admin/purchasechange" id="upform">
 			PurchaseId: <input type="text" name="uppurchaseid" value="${target.id}" disabled />
 			<input type="hidden" name="id" value="${target.id}"/>
-			ClientId: <form:input path="clientId" name="upclientid" value="${target.clientId}" />
+			ClientName: <input path="client" name="clientname" value="${target.client.name}" />
 			Phone: <form:input path="phone" name="upphone" value="${target.phone }" />
 			Adress: <form:input path="adress" name="upadress" value="${target.adress}" />
             Products: <form:input path="products" name="upproducts" value="${target.products}" />

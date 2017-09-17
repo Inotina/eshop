@@ -31,7 +31,7 @@ public class PurchaseService {
     }
 
     public boolean isValid(Purchase purchase) {
-        log.debug("validating purchase from client " + purchase.getClientId());
+        log.debug("validating purchase: " + purchase.getId());
         return validClientid(purchase) & validAdress(purchase) & validDate(purchase) & validPhone(purchase);
     }
 
@@ -41,7 +41,12 @@ public class PurchaseService {
 
 
     public boolean validClientid(Purchase purchase) {
-        return true;
+        if (purchase.getClient() == null){
+            errorMessage += "No such client in db";
+            return false;
+        }else {
+            return true;
+        }
     }
 
     public boolean validPhone(Purchase purchase) {

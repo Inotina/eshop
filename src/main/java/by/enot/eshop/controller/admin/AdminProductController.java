@@ -29,7 +29,7 @@ public class AdminProductController {
         return model;
     }
     @RequestMapping(value = "/admin/products", method = RequestMethod.POST)
-    public ModelAndView selected(@RequestParam("row")int productId){
+    public ModelAndView selected(@RequestParam("row")long productId){
         ModelAndView model = onload();
         try {
             model.addObject("targetp", productDao.getById(productId));
@@ -40,7 +40,7 @@ public class AdminProductController {
     }
     @Transactional
     @RequestMapping(value = "/admin/productchange", method = RequestMethod.POST)
-    public ModelAndView changeProduct(@ModelAttribute("targetp")Product product, @RequestParam("bt") String button, @RequestParam("id") int id,
+    public ModelAndView changeProduct(@ModelAttribute("targetp")Product product, @RequestParam("bt") String button, @RequestParam("id") long id,
                                         @RequestParam("oldname") String oldName) {
         ModelAndView model = new ModelAndView("admin/adminproduct");
         if (button.equals("Update")) {

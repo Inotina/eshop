@@ -1,6 +1,7 @@
 package by.enot.eshop.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "purchase")
@@ -24,14 +25,14 @@ public class Purchase {
     @JoinColumn(name="ClientId")
     private User client;
 
-    @Column(name = "Products")
-    private String products;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "purchaseOwner")
+    private List<PurchaseItem> products;
 
     public Purchase(){
 
     }
 
-    public Purchase(String phone, String date, String adress, User client, String products) {
+    public Purchase(String phone, String date, String adress, User client, List<PurchaseItem> products) {
         this.phone = phone;
         this.date = date;
         this.adress = adress;
@@ -89,11 +90,11 @@ public class Purchase {
         this.client = client;
     }
 
-    public String getProducts() {
+    public List<PurchaseItem> getProducts() {
         return products;
     }
 
-    public void setProducts(String products) {
+    public void setProducts(List<PurchaseItem> products) {
         this.products = products;
     }
 

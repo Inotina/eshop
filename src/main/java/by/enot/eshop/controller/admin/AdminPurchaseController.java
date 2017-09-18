@@ -54,9 +54,11 @@ public class AdminPurchaseController {
             } catch (NoSuchEntityInDBException e) {
                 log.debug(e);
             }
-            model.addObject("target", purchase);
+//            model.addObject("target", purchase);
             if (purchaseService.isValid(purchase)) {
                 purchase.setId(id);
+                purchase = purchaseService.applyChanges(purchase);
+                purchaseService.applyChanges(purchase);
                 purchaseDao.update(purchase);
                 model.addObject("message", "Successfully updated");
                 log.debug("Purchase with id: " + purchase.getId() + " updated.");
@@ -65,6 +67,7 @@ public class AdminPurchaseController {
                 purchaseService.clearErrorMessage();
                 log.debug("Error updating purchase with id: " + purchase.getId());
             }
+            model.addObject("target", purchase);
         }else if (button.equals("Delete")){
             purchase.setId(id);
             purchaseDao.delete(purchase);

@@ -1,15 +1,21 @@
 package by.enot.eshop.service;
 
 import by.enot.eshop.dao.ProductDao;
+import by.enot.eshop.dao.PurchaseDao;
+import by.enot.eshop.dao.UserDao;
 import by.enot.eshop.entity.Product;
 import by.enot.eshop.entity.Purchase;
+import by.enot.eshop.entity.PurchaseItem;
+import by.enot.eshop.entity.User;
 import by.enot.eshop.exception.NoSuchEntityInDBException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -19,6 +25,10 @@ public class PurchaseService {
     private CartManager manager;
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private PurchaseDao purchaseDao;
+    @Autowired
+    private UserDao userDao;
     private static final Logger log = Logger.getLogger(PurchaseService.class);
 
 
@@ -94,7 +104,7 @@ public class PurchaseService {
                 return false;
             }
         }
-        purchase.setProducts(manager.mapToString(cart));
+        purchase.setProducts(cartToPurchaseItems(cart, purchase));
         return true;
     }
     @Transactional
@@ -109,5 +119,36 @@ public class PurchaseService {
             product.setCount(product.getCount() - entry.getValue());
             productDao.update(product);
         }
+    }
+
+    public List<PurchaseItem> cartToPurchaseItems(Map<String, Integer> cart, Purchase purchase){
+        List<PurchaseItem> result = new ArrayList<PurchaseItem>();
+        for (Map.Entry<String, Integer> entry : cart.entrySet()){
+            Product product = null;
+            try {
+                product = productDao.getByName(entry.getKey());
+            } catch (NoSuchEntityInDBException e) {
+                log.debug(e);
+            }
+            result.add(new PurchaseItem(product, entry.getValue().intValue(), product.getPrice(), purchase));
+        }
+        return result;
+    }
+
+    public Purchase applyChanges(Purchase purchase){
+        Purchase result = null;
+        try {
+            result = purchaseDao.getByID(purchase.getId());
+        } catch (NoSuchEntityInDBException e) {
+            log.debug(e);
+        }
+        result.setClient(purchase.getClient());
+        result.setPhone(purchase.getPhone());
+        result.setAdress(purchase.getAdress());
+        for (int i = 0; i < purchase.getProducts().size(); i++){
+            result.getProducts().get(i).setCount(purchase.getProducts().get(i).getCount());
+            result.getProducts().get(i).setPrice(purchase.getProducts().get(i).getPrice());
+        }
+        return result;
     }
 }

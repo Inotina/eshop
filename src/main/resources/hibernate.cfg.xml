@@ -10,6 +10,7 @@
         <mapping class="by.enot.eshop.entity.User"/>
         <mapping class="by.enot.eshop.entity.Product"/>
         <mapping class="by.enot.eshop.entity.Purchase"/>
+        <mapping class="by.enot.eshop.entity.PurchaseItem"/>
     </session-factory>
 </hibernate-configuration>
 

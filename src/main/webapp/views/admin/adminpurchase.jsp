@@ -27,7 +27,11 @@
 				<td>${item.client.name}</td>
 				<td>${item.phone}</td>
 				<td>${item.adress}</td>
-				<td>${item.products}</td>
+				<td>
+				<c:forEach items="${item.products}" var="item2">
+					${item2.product.name}: ${item2.count} - ${item2.price*item2.count}$ <br/>
+				</c:forEach>
+				</td>
 				<td>${item.date}</td>
 			</tr>
 		</c:forEach>
@@ -46,9 +50,14 @@
 			ClientName: <input path="client" name="clientname" value="${target.client.name}" />
 			Phone: <form:input path="phone" name="upphone" value="${target.phone }" />
 			Adress: <form:input path="adress" name="upadress" value="${target.adress}" />
-            Products: <form:input path="products" name="upproducts" value="${target.products}" />
-			
-			Date: <input type="text" name="update" value="${target.date}" disabled />
+            <%--Products: <form:input path="products" name="upproducts" value="${target.products}" />--%>
+			Date: <input type="text" name="update" value="${target.date}" disabled /><br/>
+			<c:forEach items="${target.products}" var="item" varStatus="list" >
+				Product: <input type="text" value="${item.product.name}" disabled />
+				<form:input path="products[${list.index}].product.name" value="${item.product.name}" type="hidden" />
+				Count: <form:input path="products[${list.index}].count" value="${item.count}"/>
+				Price: <form:input path="products[${list.index}].price" value="${item.price}"/><br/>
+			</c:forEach>
 			<form:input path="date" type="hidden" name="hupdate" value="${target.date}" />
 			<input type="submit" name="bt" value="Update"/>
             <input type="submit" name="bt" value="Delete"/>

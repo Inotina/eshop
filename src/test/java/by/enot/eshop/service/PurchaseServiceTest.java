@@ -1,8 +1,10 @@
 package by.enot.eshop.service;
 
 import by.enot.eshop.dao.ProductDao;
+import by.enot.eshop.dao.PurchaseDao;
 import by.enot.eshop.entity.Product;
 import by.enot.eshop.entity.Purchase;
+import by.enot.eshop.entity.PurchaseItem;
 import by.enot.eshop.entity.User;
 import by.enot.eshop.exception.NoSuchEntityInDBException;
 import org.junit.Assert;
@@ -12,16 +14,20 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import static org.mockito.Mockito.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class PurchaseServiceTest {
 
     private Purchase goodPurchase, badPurchase;
     @Mock
     private ProductDao productDao;
+    @Mock
+    private PurchaseDao purchaseDao;
     @Mock
     private User user;
     @Mock
@@ -39,14 +45,14 @@ public class PurchaseServiceTest {
         when(productDao.getByName("noProduct")).thenThrow(new NoSuchEntityInDBException());
         goodPurchase = new Purchase();
         goodPurchase.setClient(user);
-        goodPurchase.setProducts("not empty");
         goodPurchase.setAdress("not empty");
         goodPurchase.setPhone("not empty");
         goodPurchase.setId(1);
         goodPurchase.setDate(null);
+        goodPurchase.setProducts(new ArrayList<PurchaseItem>(Arrays.asList(new PurchaseItem())));
+        when(purchaseDao.getByID(1)).thenReturn(goodPurchase);
         badPurchase = new Purchase();
         badPurchase.setClient(user);
-        badPurchase.setProducts("");
         badPurchase.setAdress("");
         badPurchase.setPhone("");
         badPurchase.setId(1);
@@ -129,5 +135,31 @@ public class PurchaseServiceTest {
         cart.put("product", 1);
         purchaseService.updateProductCount(cart);
     }
+    @Test
+    public void testCartToPurchaseItemsEmtyCart(){
+        Map<String, Integer> cart = new HashMap<String, Integer>();
+        Assert.assertEquals(purchaseService.cartToPurchaseItems(cart, goodPurchase).size(), 0);
+    }
+    @Test
+    public void testCartToPurchaseItemsCartWithOneUniqueProduct(){
+        Map<String, Integer> cart = new HashMap<String, Integer>();
+        cart.put("product", 3);
+        Assert.assertEquals(purchaseService.cartToPurchaseItems(cart, goodPurchase).size(), 1);
+    }
+    @Test
+    public void testApplyChangesCountAndPriceChanged(){
+        Purchase purchase = new Purchase();
+//        purchase.setClient(new User());
+        purchase.setId(1);
+        purchase.setAdress("newAdress");
+        purchase.setPhone("newPhone");
+        List<PurchaseItem> list = new ArrayList<PurchaseItem>();
+        list.add(new PurchaseItem());
+        purchase.setProducts(list);
+        purchase = purchaseService.applyChanges(purchase);
+        Assert.assertEquals(purchase.getAdress(), "newAdress");
+        Assert.assertEquals(purchase.getPhone(), "newPhone");
+    }
+
 
 }

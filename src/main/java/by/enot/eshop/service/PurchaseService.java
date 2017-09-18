@@ -27,8 +27,6 @@ public class PurchaseService {
     private ProductDao productDao;
     @Autowired
     private PurchaseDao purchaseDao;
-    @Autowired
-    private UserDao userDao;
     private static final Logger log = Logger.getLogger(PurchaseService.class);
 
 

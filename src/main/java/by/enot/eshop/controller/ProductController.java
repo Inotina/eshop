@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.transaction.Transactional;
 import java.util.List;
 
+//create main page with products list and each product page.
 @Controller
 public class ProductController {
 
@@ -20,7 +21,7 @@ public class ProductController {
     private ProductDao productDao;
     private static final Logger log = Logger.getLogger(ProductController.class);
 
-
+    //main page with products list
     @Transactional
     @RequestMapping(value = "/")
     public ModelAndView home(){
@@ -30,6 +31,7 @@ public class ProductController {
         return model;
     }
 
+    //selected by id product page
     @Transactional
     @RequestMapping(value = "/product")
     public ModelAndView product(@RequestParam("id") long id) {
@@ -40,6 +42,7 @@ public class ProductController {
             model.addObject("Product", product);
             log.debug("rendering page product id: " + id);
         }catch (NoSuchEntityInDBException e){
+            //no product with this id in db
             log.info(e);
             return new ModelAndView("redirect:/");
         }

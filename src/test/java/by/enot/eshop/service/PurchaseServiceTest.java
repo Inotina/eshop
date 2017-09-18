@@ -14,9 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
 import static org.mockito.Mockito.*;
 
 import java.util.*;

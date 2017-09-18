@@ -2,11 +2,9 @@ package by.enot.eshop.service;
 
 import by.enot.eshop.dao.ProductDao;
 import by.enot.eshop.dao.PurchaseDao;
-import by.enot.eshop.dao.UserDao;
 import by.enot.eshop.entity.Product;
 import by.enot.eshop.entity.Purchase;
 import by.enot.eshop.entity.PurchaseItem;
-import by.enot.eshop.entity.User;
 import by.enot.eshop.exception.NoSuchEntityInDBException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

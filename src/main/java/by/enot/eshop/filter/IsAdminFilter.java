@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//check if user has rights to access admin area
 @WebFilter("/admin/*")
 public class IsAdminFilter extends AbstractFilter {
 
@@ -22,6 +23,7 @@ public class IsAdminFilter extends AbstractFilter {
             log.info("Admin access granted to: " + currUser.getName() + " " + request.getRemoteAddr());
             filterChain.doFilter(request, response);
         }else{
+            //if not admin, redirect to main page
             log.info("unauthorized access from : " + request.getRemoteAddr());
             response.sendRedirect("/eshop");
         }

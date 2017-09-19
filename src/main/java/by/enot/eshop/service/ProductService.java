@@ -23,18 +23,19 @@ public class ProductService {
     public void clearErrorMessage() {
         errorMessage = "Error occured:";
     }
-
+    //check if product object is valid product
     @Transactional
     public boolean validate(Product product) {
         log.debug("validating product with name: " + product.getName());
         return isValidCount(product) & isValidName(product) & isValidPrice(product);
     }
+    //check if currently updating product will be valid product object
     @Transactional
     public boolean validateCurrentModification(Product product, String oldName) {
         log.debug("validating product for update with id: " +product.getId());
         return isValidCount(product) & isValidNameCurrentProductModification(product, oldName) & isValidPrice(product);
     }
-
+    //check if product name is not empty and is not already in db
     public boolean isValidName(Product product) {
         if (product.getName().length() < 1) {
             errorMessage += " empty name field";
@@ -48,7 +49,7 @@ public class ProductService {
             return true;
         }
     }
-
+    //check if product name is not empty and is not already in db but ignore its current name
     public boolean isValidNameCurrentProductModification(Product product, String oldName) {
         if (product.getName().length() < 1) {
             errorMessage += " empty name field";
@@ -57,6 +58,7 @@ public class ProductService {
         try {
             Product currProduct = productDao.getByName(product.getName());
             if (currProduct.getName().equals(oldName)){
+                //ignore current product name
                 return true;
             }
             errorMessage += " product with this name already exists";
@@ -65,7 +67,7 @@ public class ProductService {
             return true;
         }
     }
-
+    //check if price is not negative
     public boolean isValidPrice(Product product) {
         if (product.getPrice() < 0) {
             errorMessage += " negative price";
@@ -73,7 +75,7 @@ public class ProductService {
         }
         return true;
     }
-
+    //check if count is not negative
     public boolean isValidCount(Product product) {
         if (product.getCount() < 0) {
             errorMessage += " negative count";

@@ -35,17 +35,17 @@ public class PurchaseService {
     public void clearErrorMessage() {
         this.errorMessage = "Error occurred:";
     }
-
+    //check if purchase is valid purchase object. This method is used when updating existing purchase
     public boolean isValid(Purchase purchase) {
         log.debug("validating purchase: " + purchase.getId());
         return validClientid(purchase) & validAdress(purchase) & validDate(purchase) & validPhone(purchase);
     }
-
+    //check if purchase is valid purchase object. This method is used before adding new purchase in db.
     public boolean isValid(Purchase purchase, Map<String, Integer> cart) {
         return validClientid(purchase) & validAdress(purchase) & validDate(purchase) & validPhone(purchase) & validCart(purchase, cart);
     }
 
-
+    //check if client exists in db
     public boolean validClientid(Purchase purchase) {
         if (purchase.getClient() == null){
             errorMessage += "No such client in db";
@@ -54,7 +54,7 @@ public class PurchaseService {
             return true;
         }
     }
-
+    //check if phone field is not empty
     public boolean validPhone(Purchase purchase) {
         if (purchase.getPhone().length() < 1) {
             errorMessage += " empty phone field";
@@ -63,7 +63,7 @@ public class PurchaseService {
             return true;
         }
     }
-
+    //check if adress field is not empty
     public boolean validAdress(Purchase purchase) {
         if (purchase.getAdress().length() < 1) {
             errorMessage += " empty adress field";
@@ -72,20 +72,21 @@ public class PurchaseService {
             return true;
         }
     }
-
+    //currently method always returns true and add Date object to purchase if this  field is null
     public boolean validDate(Purchase purchase) {
         if (purchase.getDate() == null) {
             purchase.setDate(new Date().toString());
         }
         return true;
     }
-
+    //check if cart is not empty and do not contain more products that are available for sale.
     public boolean validCart(Purchase purchase, Map<String, Integer> cart) {
         if (cart.isEmpty()) {
             errorMessage += " empty cart";
             return false;
         }
         boolean validCart = true;
+        //check if cart contains more products that are available for sale.
         for (Map.Entry<String, Integer> entry : cart.entrySet()) {
             Product currProduct = null;
             try {
@@ -103,6 +104,7 @@ public class PurchaseService {
         purchase.setProducts(cartToPurchaseItems(cart, purchase));
         return true;
     }
+    //update products count info inn db . deduct sold items.
     @Transactional
     public void updateProductCount(Map<String, Integer> cart) {
         for (Map.Entry<String, Integer> entry : cart.entrySet()) {
@@ -116,7 +118,7 @@ public class PurchaseService {
             productDao.update(product);
         }
     }
-
+    //convert hashmap cart to  List<PurchaeItem> which is used in purchase object field 'products'.
     public List<PurchaseItem> cartToPurchaseItems(Map<String, Integer> cart, Purchase purchase){
         List<PurchaseItem> result = new ArrayList<PurchaseItem>();
         for (Map.Entry<String, Integer> entry : cart.entrySet()){
@@ -130,7 +132,8 @@ public class PurchaseService {
         }
         return result;
     }
-
+    //apply changes that were made in admin area to existing purchase object. Purchase object that is returned from view is not fully valid urchase object
+    //so we need to restore this purchase from db and apply changes to this valid objects before persisting it.
     public Purchase applyChanges(Purchase purchase){
         Purchase result = null;
         try {

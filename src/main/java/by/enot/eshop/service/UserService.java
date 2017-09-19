@@ -15,11 +15,11 @@ public class UserService {
     private UserDao userDao;
     private static final Logger log = Logger.getLogger(UserService.class);
 
-
+    //check if user object is valid
     public boolean isValid(User user){
         return validateLogin(user) && validateEmail(user) && validateAdmin(user);
     }
-
+    //check if login is not in use
     private boolean validateLogin(User user){
         boolean valid = false;
         try{
@@ -33,7 +33,7 @@ public class UserService {
         }
         return valid;
     }
-
+    //check if email is in not in use
     private boolean validateEmail(User user){
         boolean valid = false;
         try{
@@ -47,7 +47,7 @@ public class UserService {
         }
         return valid;
     }
-
+    //currently this method always returns true and set all new user not an admin
     private boolean validateAdmin(User user){
         user.setIsAdmin("N");
         return true;
